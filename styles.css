@@ -84,6 +84,7 @@ progress {
   cursor: pointer;
   border: none;
   font-size: var(--default-start);
+  border-bottom: 4px solid transparent;
 }
 
 .startOverButton:hover {
@@ -95,4 +96,23 @@ progress {
   background: var(--hover-color);
   padding: var(--default-padding);
   color: var(--logo-color);
+}
+
+.initButton {
+  margin: 0 auto;
+  display: block;
+}
+
+.backButton {
+  display: inline;
+}
+
+.dashboardLogs {
+  background-color: #ebebeb;
+  padding: var(--default-padding);
+  margin-bottom: var(--default-padding);
+}
+
+.bold {
+  font-weight: 500;
 }

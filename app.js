@@ -9,10 +9,12 @@ let defaultTestIndex = 0;
 let score = 0;
 const testApp = document.querySelector(".app");
 const dashboard = document.querySelector(".dashboard");
+const dashboardLogs = document.querySelector(".dashboardLogs");
 const parent = document.querySelector(".content");
 const progress = document.querySelector("#progress");
 progress.max = matrixOfAnswers.length;
 
+const maxProgress = 63;
 /*
  * Отрисовка кнопок теста
  */
@@ -95,4 +97,41 @@ const initTest = () => {
   createElementInList(matrixOfAnswers[defaultTestIndex]);
 };
 
-// initTets();
+const cancelTest = () => {
+  testApp.style.display = "none";
+  dashboard.style.display = "block";
+  initDash();
+};
+
+const timestampToDate = timestamp => {
+  const date = new Date(timestamp);
+  return `${date.getDay()}/${date.getMonth()}/${date.getFullYear()}`;
+};
+
+const initDash = () => {
+  const logs = getItem("logs");
+  dashboardLogs.innerHTML = "";
+  if (logs.length > 0) {
+    logs.forEach(log => {
+      const loger = document.createElement("div");
+      loger.className = "logerTitle";
+      loger.innerHTML = `${timestampToDate(log.timestamp)}<span class="bold">(${
+        log.score
+      })</span>`;
+
+      const progress = document.createElement("progress");
+      progress.max = maxProgress;
+      progress.value = log.score;
+
+      dashboardLogs.appendChild(loger);
+      dashboardLogs.appendChild(progress);
+    });
+  } else {
+    const loger = document.createElement("div");
+    loger.innerHTML = "Вы еще не проходили тест";
+    dashboardLogs.appendChild(loger);
+  }
+  console.log(logs);
+};
+
+initDash();

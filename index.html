@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;900&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;900&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	<link rel="manifest" href="./manifest.json">
 
@@ -13,11 +13,14 @@
 <body>
 	<div class="logo">depresometr</div>
 	<div class="dashboard">
-    <button class="startOverButton" onclick="initTest()">Пройти тест</button>
-  </div>
-  <div class="app">
+		<div class="dashboardLogs"></div>
+		<button class="startOverButton initButton" onclick="initTest()">Пройти тест</button>
+
+	</div>
+	<div class="app">
 		<div class="question">
 			Как Вы себя чувствуете сегодня ?
+			<button class="startOverButton backButton" onclick="cancelTest()">все отлично</button>
 		</div>
 		<progress id="progress" value="0" max="21"></progress>
 		<div class="content"></div>
