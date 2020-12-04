@@ -9,7 +9,8 @@
   --hover-bg-color: var(--logo-color);
   --hover-color: #fff;
   --default-half: 0.5rem;
-  --default-start: 1.5rem;
+  --default-start: 1rem;
+  --default-start-hover: #353708;
 }
 
 body {
@@ -18,10 +19,21 @@ body {
   margin: 0;
   padding: 0;
 }
-.app {
+
+progress {
+  width: 100%;
+  margin-bottom: var(--default-padding);
+}
+
+.app,
+.dashboard {
   margin: 0 auto;
   width: 100%;
   max-width: var(--max-width-desktop);
+}
+
+.app {
+  display: none;
 }
 
 .logo {
@@ -71,8 +83,11 @@ body {
   font-family: var(--default-font);
   cursor: pointer;
   border: none;
-  /* width: 96.6%; */
   font-size: var(--default-start);
+}
+
+.startOverButton:hover {
+  border-bottom: 4px solid var(--default-start-hover);
 }
 
 .answerBox {

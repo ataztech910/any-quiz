@@ -7,7 +7,11 @@ const answerLayoutClass = "answerBox";
 const startOverLayoutClass = "startOverButton";
 let defaultTestIndex = 0;
 let score = 0;
+const testApp = document.querySelector(".app");
+const dashboard = document.querySelector(".dashboard");
 const parent = document.querySelector(".content");
+const progress = document.querySelector("#progress");
+progress.max = matrixOfAnswers.length;
 
 /*
  * Отрисовка кнопок теста
@@ -40,7 +44,13 @@ const iterateTest = event => {
   } else {
     console.log(checkResults());
     createResultLayout(checkResults());
+    const resultToState = {
+      score,
+      timestamp: new Date()
+    };
+    setItem("logs", resultToState);
   }
+  progress.value = defaultTestIndex;
 };
 
 const checkResults = () => {
@@ -68,18 +78,21 @@ const createResultLayout = result => {
   startOverLayout.className = startOverLayoutClass;
   startOverLayout.innerHTML = "Пройти еще раз";
 
-  startOverLayout.addEventListener("click", initTets);
+  startOverLayout.addEventListener("click", initTest);
 
   parent.appendChild(resultLayout);
   parent.appendChild(answerLayout);
   parent.appendChild(startOverLayout);
 };
 
-const initTets = () => {
+const initTest = () => {
+  testApp.style.display = "block";
+  dashboard.style.display = "none";
+  progress.value = 0;
   parent.innerHTML = "";
   defaultTestIndex = 0;
   score = 0;
   createElementInList(matrixOfAnswers[defaultTestIndex]);
 };
 
-initTets();
+// initTets();

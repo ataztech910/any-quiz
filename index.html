@@ -12,10 +12,14 @@
 
 <body>
 	<div class="logo">depresometr</div>
-	<div class="app">
+	<div class="dashboard">
+    <button class="startOverButton" onclick="initTest()">Пройти тест</button>
+  </div>
+  <div class="app">
 		<div class="question">
 			Как Вы себя чувствуете сегодня ?
 		</div>
+		<progress id="progress" value="0" max="21"></progress>
 		<div class="content"></div>
 	</div>
 	<script src="app-data.js"></script>
