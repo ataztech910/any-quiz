@@ -2,6 +2,9 @@
  * Значения для приложения по-умолчанию
  */
 const defaultSelectClass = "selectBox";
+const resultLayoutClass = "resultBox";
+const answerLayoutClass = "answerBox";
+const startOverLayoutClass = "startOverButton";
 let defaultTestIndex = 0;
 let score = 0;
 const parent = document.querySelector(".content");
@@ -35,8 +38,48 @@ const iterateTest = event => {
   if (defaultTestIndex < matrixOfAnswers.length) {
     createElementInList(matrixOfAnswers[defaultTestIndex]);
   } else {
-    console.log(score);
+    console.log(checkResults());
+    createResultLayout(checkResults());
   }
 };
 
-createElementInList(matrixOfAnswers[defaultTestIndex]);
+const checkResults = () => {
+  let previousElement = 0;
+  let result = 0;
+  maximalValues.forEach((max, index) => {
+    if (score >= previousElement && score <= max) {
+      result = index;
+    }
+    previousElement = max;
+  });
+  return result;
+};
+
+const createResultLayout = result => {
+  const resultLayout = document.createElement("div");
+  resultLayout.className = resultLayoutClass;
+  resultLayout.innerHTML = `Ваш результат ${score} баллов`;
+
+  const answerLayout = document.createElement("div");
+  answerLayout.className = answerLayoutClass;
+  answerLayout.innerHTML = systemAnswersByValues[result];
+
+  const startOverLayout = document.createElement("button");
+  startOverLayout.className = startOverLayoutClass;
+  startOverLayout.innerHTML = "Пройти еще раз";
+
+  startOverLayout.addEventListener("click", initTets);
+
+  parent.appendChild(resultLayout);
+  parent.appendChild(answerLayout);
+  parent.appendChild(startOverLayout);
+};
+
+const initTets = () => {
+  parent.innerHTML = "";
+  defaultTestIndex = 0;
+  score = 0;
+  createElementInList(matrixOfAnswers[defaultTestIndex]);
+};
+
+initTets();

@@ -4,9 +4,12 @@
   --default-padding: 1rem;
   --default-font: "Montserrat", sans-serif;
   --default-radius: 35px;
-  --max-width: 320px;
+  --max-width-mobile: 320px;
+  --max-width-desktop: 80%;
   --hover-bg-color: var(--logo-color);
   --hover-color: #fff;
+  --default-half: 0.5rem;
+  --default-start: 1.5rem;
 }
 
 body {
@@ -15,6 +18,11 @@ body {
   margin: 0;
   padding: 0;
 }
+.app {
+  margin: 0 auto;
+  width: 100%;
+  max-width: var(--max-width-desktop);
+}
 
 .logo {
   font-family: var(--default-font);
@@ -22,30 +30,54 @@ body {
   text-transform: uppercase;
   padding: var(--default-padding);
   font-size: 2rem;
-  color: var(--logo-color);
+  color: var(--hover-color);
   text-align: center;
+  background-color: var(--logo-color);
+  margin-bottom: var(--default-padding);
 }
-
-.app {
-  margin: 0 auto;
-  width: 100%;
-  max-width: var(--max-width);
+.question {
+  text-align: center;
+  margin-bottom: var(--default-padding);
 }
 
 .selectBox {
   font-family: var(--default-font);
   display: block;
   text-align: left;
-  padding: 1rem;
-  margin-bottom: 0.5rem;
+  padding: var(--default-padding);
+  margin-bottom: var(--default-half);
   cursor: pointer;
   width: 100%;
   border-radius: var(--default-radius);
   border: 0;
   transition: 0.5s;
+  outline: none;
 }
 
 .selectBox:hover {
   background-color: var(--hover-bg-color);
   color: var(--hover-color);
+}
+
+.resultBox,
+.startOverButton {
+  margin: var(--default-half);
+  background: var(--logo-color);
+  padding: var(--default-padding);
+  color: var(--hover-color);
+}
+
+.startOverButton {
+  font-family: var(--default-font);
+  cursor: pointer;
+  border: none;
+  /* width: 96.6%; */
+  font-size: var(--default-start);
+}
+
+.answerBox {
+  margin: var(--default-half);
+  background: var(--hover-color);
+  padding: var(--default-padding);
+  color: var(--logo-color);
 }
