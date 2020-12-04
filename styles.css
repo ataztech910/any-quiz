@@ -1,7 +1,51 @@
-body {
-  background: black;
+:root {
+  --main-bg-color: #bfd9d7;
+  --logo-color: #353745;
+  --default-padding: 1rem;
+  --default-font: "Montserrat", sans-serif;
+  --default-radius: 35px;
+  --max-width: 320px;
+  --hover-bg-color: var(--logo-color);
+  --hover-color: #fff;
 }
 
-img {
-  width: 20%;
+body {
+  background: var(--main-bg-color);
+  font-family: var(--default-font);
+  margin: 0;
+  padding: 0;
+}
+
+.logo {
+  font-family: var(--default-font);
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: var(--default-padding);
+  font-size: 2rem;
+  color: var(--logo-color);
+  text-align: center;
+}
+
+.app {
+  margin: 0 auto;
+  width: 100%;
+  max-width: var(--max-width);
+}
+
+.selectBox {
+  font-family: var(--default-font);
+  display: block;
+  text-align: left;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  width: 100%;
+  border-radius: var(--default-radius);
+  border: 0;
+  transition: 0.5s;
+}
+
+.selectBox:hover {
+  background-color: var(--hover-bg-color);
+  color: var(--hover-color);
 }
