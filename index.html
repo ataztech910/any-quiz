@@ -2,13 +2,33 @@
 
 <head>
 	<meta charset="UTF-8">
-	<script src="script.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;900&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	<link rel="manifest" href="./manifest.json">
+
 </head>
 
 <body>
-	<img src="https://scontent-vie1-1.xx.fbcdn.net/v/t1.0-9/46516018_10156695084414034_6508099411745177600_o.jpg?_nc_cat=100&ccb=2&_nc_sid=09cbfe&_nc_ohc=pSG59eMFmNIAX_IyrYU&_nc_ht=scontent-vie1-1.xx&oh=b008fbb166a00a0958bced1368c9ebe0&oe=5FE646F4" alt="">
-  </body>
+	<div class="logo">depresometr</div>
+	<div class="dashboard">
+		<h3 class="bold">Данные за прошлый период</h3>
+		<div class="dashboardLogs"></div>
+		<button class="startOverButton initButton" onclick="initTest()">Пройти тест</button>
+
+	</div>
+	<div class="app">
+		<div class="question bold">
+			Как Вы себя чувствуете сегодня ?
+			<button class="startOverButton backButton" onclick="cancelTest()">все отлично</button>
+		</div>
+		<progress id="progress" value="0" max="21"></progress>
+		<div class="content"></div>
+	</div>
+	<script src="app-data.js"></script>
+	<script src="app-state-utils.js"></script>
+	<script src="app.js"></script>
+</body>
 
 </html>

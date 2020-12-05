@@ -1,7 +1,118 @@
-body {
-  background: black;
+:root {
+  --main-bg-color: #bfd9d7;
+  --logo-color: #353745;
+  --default-padding: 1rem;
+  --default-font: "Montserrat", sans-serif;
+  --default-radius: 35px;
+  --max-width-mobile: 320px;
+  --max-width-desktop: 80%;
+  --hover-bg-color: var(--logo-color);
+  --hover-color: #fff;
+  --default-half: 0.5rem;
+  --default-start: 1rem;
+  --default-start-hover: #353708;
 }
 
-img {
-  width: 20%;
+body {
+  background: var(--main-bg-color);
+  font-family: var(--default-font);
+  margin: 0;
+  padding: 0;
+}
+
+progress {
+  width: 100%;
+  margin-bottom: var(--default-padding);
+}
+
+.app,
+.dashboard {
+  margin: 0 auto;
+  width: 100%;
+  max-width: var(--max-width-desktop);
+}
+
+.app {
+  display: none;
+}
+
+.logo {
+  font-family: var(--default-font);
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: var(--default-padding);
+  font-size: 2rem;
+  color: var(--hover-color);
+  text-align: center;
+  background-color: var(--logo-color);
+  margin-bottom: var(--default-padding);
+}
+.question {
+  text-align: center;
+  margin-bottom: var(--default-padding);
+}
+
+.selectBox {
+  font-family: var(--default-font);
+  display: block;
+  text-align: left;
+  padding: var(--default-padding);
+  margin-bottom: var(--default-half);
+  cursor: pointer;
+  width: 100%;
+  border-radius: var(--default-radius);
+  border: 0;
+  transition: 0.5s;
+  outline: none;
+}
+
+.selectBox:hover {
+  background-color: var(--hover-bg-color);
+  color: var(--hover-color);
+}
+
+.resultBox,
+.startOverButton {
+  margin: var(--default-half);
+  background: var(--logo-color);
+  padding: var(--default-padding);
+  color: var(--hover-color);
+}
+
+.startOverButton {
+  font-family: var(--default-font);
+  cursor: pointer;
+  border: none;
+  font-size: var(--default-start);
+  border-bottom: 4px solid transparent;
+}
+
+.startOverButton:hover {
+  border-bottom: 4px solid var(--default-start-hover);
+}
+
+.answerBox {
+  margin: var(--default-half);
+  background: var(--hover-color);
+  padding: var(--default-padding);
+  color: var(--logo-color);
+}
+
+.initButton {
+  margin: 0 auto;
+  display: block;
+}
+
+.backButton {
+  display: inline;
+}
+
+.dashboardLogs {
+  background-color: #ebebeb;
+  padding: var(--default-padding);
+  margin-bottom: var(--default-padding);
+}
+
+.bold {
+  font-weight: 500;
 }
