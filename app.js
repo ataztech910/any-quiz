@@ -5,7 +5,6 @@ const defaultSelectClass = "selectBox";
 const resultLayoutClass = "resultBox";
 const answerLayoutClass = "answerBox";
 const startOverLayoutClass = "startOverButton";
-// let score = 0;
 const testApp = getElement(".app");
 const dashboard = getElement(".dashboard");
 const dashboardLogs = getElement(".dashboardLogs");
