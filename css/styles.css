@@ -159,6 +159,8 @@ progress {
   border-radius: 5px;
   transition: var(--default-transition);
   outline: none;
+  line-height: var(--default-padding);
+  height: 2rem;
 }
 .navigation:hover {
   opacity: var(--default-opacity);
