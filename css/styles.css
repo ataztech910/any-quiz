@@ -130,6 +130,7 @@ progress {
   background-color: #ebebeb;
   padding: var(--default-padding);
   margin-bottom: var(--default-padding);
+  border-radius: 10px;
 }
 
 .bold {
