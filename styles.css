@@ -66,7 +66,8 @@ progress {
   outline: none;
 }
 
-.selectBox:hover {
+.selectBox:hover,
+.selected {
   background-color: var(--hover-bg-color);
   color: var(--hover-color);
 }
@@ -115,4 +116,21 @@ progress {
 
 .bold {
   font-weight: 500;
+}
+
+.navigationBlock {
+  display: flex;
+  align-items: end;
+  width: 100%;
+  justify-content: center;
+}
+
+.navigation {
+  display: block;
+  cursor: pointer;
+  margin: var(--default-half);
+  background: var(--logo-color);
+  padding: var(--default-half);
+  color: var(--hover-color);
+  border: 0;
 }

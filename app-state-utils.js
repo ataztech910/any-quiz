@@ -1,3 +1,6 @@
+/**
+ * Получить элемент из localstorage в виде JSON
+ */
 const getItem = name => {
   if (!!!localStorage.getItem(name)) {
     localStorage.setItem(name, JSON.stringify([]));
@@ -5,8 +8,11 @@ const getItem = name => {
   return JSON.parse(localStorage.getItem(name));
 };
 
+/**
+ * Добавить элемент в массив в хранилище
+ */
 const setItem = (name, value) => {
   const state = getItem(name);
-  state.push(value);
+  state.unshift(value);
   localStorage.setItem(name, JSON.stringify(state));
 };

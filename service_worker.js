@@ -7,7 +7,13 @@ self.addEventListener("install", function(e) {
   e.waitUntil(
     caches.open(cacheName).then(function(cache) {
       return cache
-        .addAll(["./", "./style.css", "./script.js"])
+        .addAll([
+          "./",
+          "./styles.css",
+          "./app-data.js",
+          "./app-state-utils.js",
+          "./app.js"
+        ])
         .then(function() {
           self.skipWaiting();
         });
