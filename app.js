@@ -5,7 +5,7 @@ const defaultSelectClass = "selectBox";
 const resultLayoutClass = "resultBox";
 const answerLayoutClass = "answerBox";
 const startOverLayoutClass = "startOverButton";
-let score = 0;
+// let score = 0;
 const testApp = getElement(".app");
 const dashboard = getElement(".dashboard");
 const dashboardLogs = getElement(".dashboardLogs");
@@ -20,7 +20,6 @@ const navigationClass = "navigation";
 let defaultTestIndex = 0;
 const maxTestValue = matrixOfAnswers.length;
 
-
 /*
  * Отрисовка кнопок теста
  */
@@ -32,7 +31,8 @@ const createElementInList = dataList => {
       defaultSelectClass,
       dataElement.content,
       answerValueName,
-      dataElement.score
+      dataElement.score,
+      dataElement.selected
     );
     parent.appendChild(btn);
   });
@@ -43,6 +43,7 @@ const createElementInList = dataList => {
   document.querySelectorAll(`.${defaultSelectClass}`).forEach(selector => {
     selector.addEventListener("click", selectElementInTest);
   });
+  progress.value = defaultTestIndex;
 };
 
 /*
@@ -53,43 +54,19 @@ const selectElementInTest = () => {
     parseInt(event.target.dataset[answerValueName]),
     event.target
   );
-  // score += parseInt(event.target.dataset[answerValueName]);
-  // console.log(score);
-  // // defaultTestIndex++;
-  // applicationState.changeIndexState(true);
-  // parent.innerHTML = "";
-  // if (applicationState.defaultTestIndex < matrixOfAnswers.length) {
-  //   createElementInList(matrixOfAnswers[applicationState.defaultTestIndex]);
-  // } else {
-  //   createResultLayout(checkResults());
-  //   const resultToState = {
-  //     score,
-  //     timestamp: new Date().toLocaleDateString("en-US")
-  //   };
-  //   setItem("logs", resultToState);
-  // }
-  // progress.value = applicationState.defaultTestIndex;
-};
-
-/**
- * Проверка результатов. Получая значения проверяем в какой разброс оно попадает и выдаем ID из массива результатов
- */
-const checkResults = () => {
-  let previousElement = 0;
-  let result = 0;
-  maximalValues.forEach((max, index) => {
-    if (score >= previousElement && score <= max) {
-      result = index;
-    }
-    previousElement = max;
-  });
-  return result;
 };
 
 /**
  * Создание слоя с результатами
  */
 const createResultLayout = result => {
+  let score = 0;
+
+  matrixOfAnswers.forEach(element => {
+    const selectedValue = element.find(answer => answer.selected);
+    score += selectedValue.score;
+  });
+
   const resultLayout = createElementWithContent(
     "div",
     resultLayoutClass,
@@ -108,6 +85,8 @@ const createResultLayout = result => {
   );
   startOverLayout.addEventListener("click", initTest);
 
+  progress.value = maxTestValue;
+  parent.innerHTML = "";
   parent.appendChild(resultLayout);
   parent.appendChild(answerLayout);
   parent.appendChild(startOverLayout);
@@ -122,6 +101,7 @@ const initTest = () => {
   progress.value = 0;
   resetIndex();
   score = 0;
+  resetLastResults();
   createElementInList(matrixOfAnswers[defaultTestIndex]);
 };
 
