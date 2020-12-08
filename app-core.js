@@ -63,6 +63,9 @@ const buildLoggerString = log => {
   return `${log.timestamp}<span class="bold">(${log.score})</span>`;
 };
 
+/**
+ * Смена навигации по тесту. Если не выбран ответ, то не можем двигаться
+ */
 const changeNavigationState = resolve => {
   let readyToProceed = false;
   matrixOfAnswers[defaultTestIndex].forEach(element => {
@@ -83,49 +86,30 @@ const changeNavigationState = resolve => {
   }
 };
 
-const getResults = () => {
-  let score = 0;
-  matrixOfAnswers.forEach(element => {
-    const selectedValue = element.find(answer => answer.selected);
-    score += selectedValue.score;
-  });
-  return score;
-};
-
-const checkResults = score => {
-  let previousElement = 0;
-  let result = 0;
-  maximalValues.forEach((max, index) => {
-    if (score >= previousElement && score <= max) {
-      result = index;
-    }
-    previousElement = max;
-  });
-  return result;
-};
-
-const finishTest = () => {
-  const score = getResults();
-  createResultLayout(checkResults(score));
-  const resultToState = {
-    score,
-    timestamp: new Date().toLocaleDateString("en-US")
-  };
-  setItem("logs", resultToState);
-};
-
+/**
+ * Навигация по тесту на следующий вопрос
+ */
 const testNavigationForward = event => {
   changeNavigationState(changeIndex);
 };
 
+/**
+ * Навигация по тесту на предыдущий вопрос
+ */
 const testNavigationBack = event => {
   changeIndex(false);
 };
 
+/**
+ * Навигация по тесту на экрвн с результатами
+ */
 const getResult = () => {
   changeNavigationState(finishTest);
 };
 
+/**
+ * Создание навигации
+ */
 const createNavigationBlock = max => {
   const navigationBlock = createElementWithContent("div", navigationBlockClass);
 
@@ -162,6 +146,9 @@ const createNavigationBlock = max => {
   return navigationBlock;
 };
 
+/**
+ * Смена текущего индекса для теста
+ */
 const changeIndex = (direction = true) => {
   if (direction && defaultTestIndex < maxTestValue) {
     defaultTestIndex++;
@@ -171,10 +158,16 @@ const changeIndex = (direction = true) => {
   createElementInList(matrixOfAnswers[defaultTestIndex]);
 };
 
+/**
+ * Сброс индекса на нулевой
+ */
 const resetIndex = () => {
   defaultTestIndex = 0;
 };
 
+/**
+ * Выбрать ответ
+ */
 const selectTestInDataSet = (selectedIndex, target) => {
   getAll(`.${defaultSelectClass}`).forEach(element => {
     element.classList.remove("selected");
@@ -190,8 +183,51 @@ const selectTestInDataSet = (selectedIndex, target) => {
   });
 };
 
+/**
+ * Сброс всех ответов
+ */
 const resetLastResults = () => {
   matrixOfAnswers.forEach(element => {
-    element.forEach(answer => answer.selected = false);
+    element.forEach(answer => (answer.selected = false));
   });
+};
+
+/**
+ * Получение результата теста
+ */
+const getTestScore = () => {
+  let score = 0;
+  matrixOfAnswers.forEach(element => {
+    const selectedValue = element.find(answer => answer.selected);
+    score += selectedValue.score;
+  });
+  return score;
+};
+
+/**
+ * Проверка к какой категории относится набранный счет
+ */
+const checkResults = score => {
+  let previousElement = 0;
+  let result = 0;
+  maximalValues.forEach((max, index) => {
+    if (score >= previousElement && score <= max) {
+      result = index;
+    }
+    previousElement = max;
+  });
+  return result;
+};
+
+/**
+ * Завершить тест и сохранить данные
+ */
+const finishTest = () => {
+  const score = getTestScore();
+  createResultLayout(checkResults(score));
+  const resultToState = {
+    score,
+    timestamp: new Date().toLocaleDateString("en-US")
+  };
+  setItem("logs", resultToState);
 };
