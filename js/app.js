@@ -18,12 +18,17 @@ const navigationBlockClass = "navigationBlock";
 const navigationClass = "navigation";
 let defaultTestIndex = 0;
 const maxTestValue = matrixOfAnswers.length;
+const questionClass = "questionLayout";
 
 /*
  * Отрисовка кнопок теста
  */
 const createElementInList = dataList => {
   parent.innerHTML = "";
+
+  const question = getElement(`.${questionClass}`);
+  question.innerHTML = matrixOfQuestions[defaultTestIndex];
+
   dataList.forEach(dataElement => {
     const btn = createElementWithContent(
       "button",
