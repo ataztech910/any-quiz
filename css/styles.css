@@ -48,8 +48,10 @@ progress {
   margin-bottom: var(--default-padding);
 }
 .question {
-  text-align: center;
+  text-align: left;
   margin-bottom: var(--default-padding);
+  display: flex;
+  align-items: center;
 }
 
 .selectBox {
@@ -102,6 +104,22 @@ progress {
 .initButton {
   margin: 0 auto;
   display: block;
+}
+
+.homeButton {
+  margin: var(--default-half);
+  background: var(--logo-color);
+  color: var(--hover-color);
+  padding: var(--default-half);
+  border-radius: 50%;
+  border: 0;
+  cursor: pointer;
+  outline: none;
+  transition: 0.3s;
+  font-size: var(--default-start);
+}
+.homeButton:hover {
+  opacity: 0.8;
 }
 
 .backButton {

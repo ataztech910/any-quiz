@@ -7,6 +7,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;900&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="/css/styles.css">
 	<link rel="stylesheet" type="text/css" href="/css/snackbar.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="manifest" href="./manifest.json">
 
 </head>
@@ -21,8 +22,8 @@
 	</div>
 	<div class="app">
 		<div class="question bold">
-			Как Вы себя чувствуете сегодня ?
-			<button class="startOverButton backButton" onclick="cancelTest()">все отлично</button>
+			<button class="homeButton backButton" onclick="cancelTest()"><i class="fa fa-home"></i></button>
+			<div class="questionLayout"></div>
 		</div>
 		<progress id="progress" value="0" max="21"></progress>
 		<div class="content"></div>
