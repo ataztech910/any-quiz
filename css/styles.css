@@ -9,8 +9,11 @@
   --hover-bg-color: var(--logo-color);
   --hover-color: #fff;
   --default-half: 0.5rem;
-  --default-start: 1rem;
+  --default-start: 0.8rem;
   --default-start-hover: #353708;
+  --default-radius: 10px;
+  --default-transition: 0.3s;
+  --default-opacity: 0.8;
 }
 
 body {
@@ -64,7 +67,7 @@ progress {
   width: 100%;
   border-radius: var(--default-radius);
   border: 0;
-  transition: 0.5s;
+  transition: var(--default-transition);
   outline: none;
 }
 
@@ -87,11 +90,12 @@ progress {
   cursor: pointer;
   border: none;
   font-size: var(--default-start);
-  border-bottom: 4px solid transparent;
+  border-radius: var(--default-radius);
+  transition: var(--default-transition);
 }
 
 .startOverButton:hover {
-  border-bottom: 4px solid var(--default-start-hover);
+  opacity: var(--default-opacity);
 }
 
 .answerBox {
@@ -115,11 +119,11 @@ progress {
   border: 0;
   cursor: pointer;
   outline: none;
-  transition: 0.3s;
+  transition: var(--default-transition);
   font-size: var(--default-start);
 }
 .homeButton:hover {
-  opacity: 0.8;
+  opacity: var(--default-opacity);
 }
 
 .backButton {
@@ -130,7 +134,7 @@ progress {
   background-color: #ebebeb;
   padding: var(--default-padding);
   margin-bottom: var(--default-padding);
-  border-radius: 10px;
+  border-radius: var(--default-radius);
 }
 
 .bold {
@@ -149,7 +153,13 @@ progress {
   cursor: pointer;
   margin: var(--default-half);
   background: var(--logo-color);
-  padding: var(--default-half);
+  padding: var(--default-half) var(--default-padding);
   color: var(--hover-color);
   border: 0;
+  border-radius: 5px;
+  transition: var(--default-transition);
+  outline: none;
+}
+.navigation:hover {
+  opacity: var(--default-opacity);
 }
