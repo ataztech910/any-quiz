@@ -117,7 +117,7 @@ const createNavigationBlock = max => {
     const buttonBack = createElementWithContent(
       "button",
       navigationClass,
-      "назад"
+      "❮ назад"
     );
     buttonBack.addEventListener("click", testNavigationBack);
     navigationBlock.appendChild(buttonBack);
@@ -127,7 +127,7 @@ const createNavigationBlock = max => {
     const buttonForwad = createElementWithContent(
       "button",
       navigationClass,
-      "далее"
+      "далее ❯"
     );
     buttonForwad.addEventListener("click", testNavigationForward);
     navigationBlock.appendChild(buttonForwad);
