@@ -20,44 +20,32 @@ let defaultTestIndex = 0;
 const maxTestValue = matrixOfAnswers.length;
 const questionClass = "questionLayout";
 
-/*
- * Отрисовка кнопок теста
+/**
+ * Создание главного экрана
  */
-const createElementInList = dataList => {
-  parent.innerHTML = "";
+const initDash = () => {
+  const logs = getItem("logs");
+  dashboardLogs.innerHTML = "";
+  if (logs.length > 0) {
+    logs.forEach(log => {
+      const loger = createElementWithContent(
+        "div",
+        loggerTitleClass,
+        buildLoggerString(log)
+      );
+      const progress = createProgressBar(maxProgress, log.score);
 
-  const question = getElement(`.${questionClass}`);
-  question.innerHTML = matrixOfQuestions[defaultTestIndex];
-
-  dataList.forEach(dataElement => {
-    const btn = createElementWithContent(
-      "button",
-      defaultSelectClass,
-      dataElement.content,
-      answerValueName,
-      dataElement.score,
-      dataElement.selected
+      dashboardLogs.appendChild(loger);
+      dashboardLogs.appendChild(progress);
+    });
+  } else {
+    const loger = createElementWithContent(
+      "div",
+      undefined,
+      "Вы еще не проходили тест"
     );
-    parent.appendChild(btn);
-  });
-
-  const navigationBlock = createNavigationBlock(matrixOfAnswers.length);
-  parent.appendChild(navigationBlock);
-
-  document.querySelectorAll(`.${defaultSelectClass}`).forEach(selector => {
-    selector.addEventListener("click", selectElementInTest);
-  });
-  progress.value = defaultTestIndex;
-};
-
-/*
- *
- */
-const selectElementInTest = () => {
-  selectTestInDataSet(
-    parseInt(event.target.dataset[answerValueName]),
-    event.target
-  );
+    dashboardLogs.appendChild(loger);
+  }
 };
 
 /**
@@ -109,6 +97,46 @@ const initTest = () => {
   createElementInList(matrixOfAnswers[defaultTestIndex]);
 };
 
+/*
+ * Отрисовка кнопок теста
+ */
+const createElementInList = dataList => {
+  parent.innerHTML = "";
+
+  const question = getElement(`.${questionClass}`);
+  question.innerHTML = matrixOfQuestions[defaultTestIndex];
+
+  dataList.forEach(dataElement => {
+    const btn = createElementWithContent(
+      "button",
+      defaultSelectClass,
+      dataElement.content,
+      answerValueName,
+      dataElement.score,
+      dataElement.selected
+    );
+    parent.appendChild(btn);
+  });
+
+  const navigationBlock = createNavigationBlock(matrixOfAnswers.length);
+  parent.appendChild(navigationBlock);
+
+  document.querySelectorAll(`.${defaultSelectClass}`).forEach(selector => {
+    selector.addEventListener("click", selectElementInTest);
+  });
+  progress.value = defaultTestIndex;
+};
+
+/*
+ * Выбор ответа в списке вариантов
+ */
+const selectElementInTest = () => {
+  selectTestInDataSet(
+    parseInt(event.target.dataset[answerValueName]),
+    event.target
+  );
+};
+
 /**
  * Отменить тест и вернуться на главную
  */
@@ -119,44 +147,20 @@ const cancelTest = () => {
 };
 
 /**
- * Создание главного экрана
- */
-const initDash = () => {
-  const logs = getItem("logs");
-  dashboardLogs.innerHTML = "";
-  if (logs.length > 0) {
-    logs.forEach(log => {
-      const loger = createElementWithContent(
-        "div",
-        loggerTitleClass,
-        buildLoggerString(log)
-      );
-      const progress = createProgressBar(maxProgress, log.score);
-
-      dashboardLogs.appendChild(loger);
-      dashboardLogs.appendChild(progress);
-    });
-  } else {
-    const loger = createElementWithContent(
-      "div",
-      undefined,
-      "Вы еще не проходили тест"
-    );
-    dashboardLogs.appendChild(loger);
-  }
-};
-
-/**
  * Старт приложения
  */
 initDash();
 
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/service-worker.js')
-  .then(function(registration) {
-    console.log('Registration successful, scope is:', registration.scope);
-  })
-  .catch(function(error) {
-    console.log('Service worker registration failed, error:', error);
-  });
+/*
+ * Это создание service worker нужен для инициации Progressive возможностей страницы
+ */
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker
+    .register("/service-worker.js")
+    .then(function(registration) {
+      console.log("Registration successful, scope is:", registration.scope);
+    })
+    .catch(function(error) {
+      console.log("Service worker registration failed, error:", error);
+    });
 }
