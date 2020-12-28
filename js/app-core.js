@@ -159,7 +159,7 @@ const changeIndex = (direction = true) => {
 };
 
 /**
- * Сброс индекса на нулевой
+ * Сброс текущего индекса теста в ноль
  */
 const resetIndex = () => {
   defaultTestIndex = 0;
