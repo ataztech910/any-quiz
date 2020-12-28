@@ -27,6 +27,7 @@ const noResultsYet = "Вы еще не проходили тест";
 const restartQuiz = "Пройти еще раз";
 const yourResult = "Ваш результат";
 const scoreTextName = "баллов";
+const snackBarTimeout = 3000;
 
 /**
  * Создание главного экрана
@@ -183,7 +184,7 @@ const changeNavigationState = resolve => {
 
     setTimeout(function() {
       snackbar.className = snackbar.className.replace("show", "");
-    }, 3000);
+    }, snackBarTimeout);
   }
 };
 
