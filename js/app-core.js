@@ -48,4 +48,3 @@ const createProgressBar = (progress, score) => {
   progressElement.value = score;
   return progressElement;
 };
-
