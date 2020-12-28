@@ -19,6 +19,14 @@ const navigationClass = "navigation";
 let defaultTestIndex = 0;
 const maxTestValue = matrixOfAnswers.length;
 const questionClass = "questionLayout";
+const backButtonText = "❮ назад";
+const forwardButtonText = "далее ❯";
+const endQuizButton = "завершить";
+const noAnswerSelected = "Не выбран ответ";
+const noResultsYet = "Вы еще не проходили тест";
+const restartQuiz = "Пройти еще раз";
+const yourResult = "Ваш результат";
+const scoreTextName = "баллов";
 
 /**
  * Создание главного экрана
@@ -39,11 +47,7 @@ const initDash = () => {
       dashboardLogs.appendChild(progress);
     });
   } else {
-    const loger = createElementWithContent(
-      "div",
-      undefined,
-      "Вы еще не проходили тест"
-    );
+    const loger = createElementWithContent("div", undefined, noResultsYet);
     dashboardLogs.appendChild(loger);
   }
 };
@@ -73,7 +77,7 @@ const createResultLayout = result => {
   const startOverLayout = createElementWithContent(
     "button",
     startOverLayoutClass,
-    "Пройти еще раз"
+    restartQuiz
   );
   startOverLayout.addEventListener("click", initTest);
 
@@ -150,7 +154,7 @@ const cancelTest = () => {
  * Создание строки результатов
  */
 const buildYourResultsString = string => {
-  return `Ваш результат ${string} баллов`;
+  return `${yourResult} ${string} ${scoreTextName}`;
 };
 
 /**
@@ -174,7 +178,7 @@ const changeNavigationState = resolve => {
     resolve(true);
   } else {
     const snackbar = getElement("#snackbar");
-    snackbar.innerHTML = "Не выбран ответ";
+    snackbar.innerHTML = noAnswerSelected;
     snackbar.className = "show";
 
     setTimeout(function() {
@@ -214,7 +218,7 @@ const createNavigationBlock = max => {
     const buttonBack = createElementWithContent(
       "button",
       navigationClass,
-      "❮ назад"
+      backButtonText
     );
     buttonBack.addEventListener("click", testNavigationBack);
     navigationBlock.appendChild(buttonBack);
@@ -224,7 +228,7 @@ const createNavigationBlock = max => {
     const buttonForwad = createElementWithContent(
       "button",
       navigationClass,
-      "далее ❯"
+      forwardButtonText
     );
     buttonForwad.addEventListener("click", testNavigationForward);
     navigationBlock.appendChild(buttonForwad);
@@ -234,7 +238,7 @@ const createNavigationBlock = max => {
     const buttonForwad = createElementWithContent(
       "button",
       navigationClass,
-      "завершить"
+      endQuizButton
     );
     buttonForwad.addEventListener("click", getResult);
     navigationBlock.appendChild(buttonForwad);
