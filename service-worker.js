@@ -1,9 +1,9 @@
-// Use a cacheName for cache versioning
+// Имя кэша для версионности
 var cacheName = "v1:static";
 
-// During the installation phase, you'll usually want to cache static assets.
+// После инсталяции нам надо кэшировать файлы
 self.addEventListener("install", function(e) {
-  // Once the service worker is installed, go ahead and fetch the resources to make this work offline.
+  // Как только сервис заработает то файлы будут доступны офлайн.
   e.waitUntil(
     caches.open(cacheName).then(function(cache) {
       return cache
@@ -22,16 +22,16 @@ self.addEventListener("install", function(e) {
   );
 });
 
-// when the browser fetches a URL…
+// когда браузер разбираетURL…
 self.addEventListener("fetch", function(event) {
-  // … either respond with the cached object or go ahead and fetch the actual URL
+  // … кэшируются запросы по URL
   event.respondWith(
     caches.match(event.request).then(function(response) {
       if (response) {
-        // retrieve from cache
+        // взять из кэша
         return response;
       }
-      // fetch as normal
+      // обычный запрос
       return fetch(event.request);
     })
   );
