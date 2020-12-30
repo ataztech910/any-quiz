@@ -198,7 +198,7 @@ const testNavigationForward = () => {
 /**
  * Навигация по тесту на предыдущий вопрос
  */
-const testNavigationBack = event => {
+const testNavigationBack = () => {
   changeIndex(false);
 };
 
