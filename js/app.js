@@ -63,13 +63,13 @@ const initTest = () => {
   resetIndex();
   score = 0;
   resetLastResults();
-  createElementInList(matrixOfAnswers[defaultTestIndex]);
+  createQuizElementsWithAnswersList(matrixOfAnswers[defaultTestIndex]);
 };
 
 /*
  * Отрисовка кнопок теста
  */
-const createElementInList = dataList => {
+const createQuizElementsWithAnswersList = dataList => {
   parent.innerHTML = "";
 
   const question = getElement(`.${questionClass}`);
@@ -257,7 +257,7 @@ const changeIndex = (direction = true) => {
   } else if (!direction && defaultTestIndex > 0) {
     defaultTestIndex--;
   }
-  createElementInList(matrixOfAnswers[defaultTestIndex]);
+  createQuizElementsWithAnswersList(matrixOfAnswers[defaultTestIndex]);
 };
 
 /**
