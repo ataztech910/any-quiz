@@ -54,42 +54,6 @@ const initDash = () => {
 };
 
 /**
- * Создание слоя с результатами
- */
-const createResultLayout = result => {
-  let score = 0;
-
-  matrixOfAnswers.forEach(element => {
-    const selectedValue = element.find(answer => answer.selected);
-    score += selectedValue.score;
-  });
-
-  const resultLayout = createElementWithContent(
-    "div",
-    resultLayoutClass,
-    buildYourResultsString(score)
-  );
-
-  const answerLayout = createElementWithContent(
-    "div",
-    answerLayoutClass,
-    systemAnswersByValues[result]
-  );
-  const startOverLayout = createElementWithContent(
-    "button",
-    startOverLayoutClass,
-    restartQuiz
-  );
-  startOverLayout.addEventListener("click", initTest);
-
-  progress.value = maxTestValue;
-  parent.innerHTML = "";
-  parent.appendChild(resultLayout);
-  parent.appendChild(answerLayout);
-  parent.appendChild(startOverLayout);
-};
-
-/**
  * Инициация тестов. Сброс всех параметров
  */
 const initTest = () => {
@@ -140,6 +104,42 @@ const selectElementInTest = () => {
     parseInt(event.target.dataset[answerValueName]),
     event.target
   );
+};
+
+/**
+ * Создание слоя с результатами
+ */
+const createResultLayout = result => {
+  let score = 0;
+
+  matrixOfAnswers.forEach(element => {
+    const selectedValue = element.find(answer => answer.selected);
+    score += selectedValue.score;
+  });
+
+  const resultLayout = createElementWithContent(
+    "div",
+    resultLayoutClass,
+    buildYourResultsString(score)
+  );
+
+  const answerLayout = createElementWithContent(
+    "div",
+    answerLayoutClass,
+    systemAnswersByValues[result]
+  );
+  const startOverLayout = createElementWithContent(
+    "button",
+    startOverLayoutClass,
+    restartQuiz
+  );
+  startOverLayout.addEventListener("click", initTest);
+
+  progress.value = maxTestValue;
+  parent.innerHTML = "";
+  parent.appendChild(resultLayout);
+  parent.appendChild(answerLayout);
+  parent.appendChild(startOverLayout);
 };
 
 /**
