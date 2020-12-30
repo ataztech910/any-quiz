@@ -191,7 +191,7 @@ const changeNavigationState = resolve => {
 /**
  * Навигация по тесту на следующий вопрос
  */
-const testNavigationForward = event => {
+const testNavigationForward = () => {
   changeNavigationState(changeIndex);
 };
 
