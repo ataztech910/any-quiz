@@ -1,15 +1,5 @@
 let quizData = {};
-fetch("/data.json")
-  .then(function(response) {
-    return response.json();
-  })
-  .then(function(data) {
-    console.log(data);
-    quizData = data;
-  })
-  .catch(function(err) {
-    console.log("Something went wrong!", err);
-  });
+
 
 /*
  * Массив возможных максимальных значений
