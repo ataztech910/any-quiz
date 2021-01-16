@@ -1,0 +1,19 @@
+{
+  "name": "any-quiz",
+  "version": "1.0.0",
+  "description": "Этот проект - пример AnyQuiz Software. Принцип работы создания психологических тестов следующий. Данные тестов должны иметь формат [  {       content: \"Текст ответа\",       score: <балл за ответ>,       selected: false     } ]",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ataztech910/any-quiz.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ataztech910/any-quiz/issues"
+  },
+  "homepage": "https://github.com/ataztech910/any-quiz#readme"
+}
