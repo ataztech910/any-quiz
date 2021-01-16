@@ -130,7 +130,7 @@ progress {
   display: inline;
 }
 
-.dashboardLogs {
+.dashboardLogsLayout {
   background-color: #ebebeb;
   padding: var(--default-padding);
   margin-bottom: var(--default-padding);

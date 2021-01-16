@@ -1,23 +1,27 @@
 /*
  * Значения для приложения по-умолчанию
  */
+const quizApplication = getElement(".app");
+const dashboard = getElement(".dashboard");
+const dashboardLogsLayout = getElement(".dashboardLogsLayout");
+const contentLayout = getElement(".content");
+const progress = getElement("#progress");
+progress.max = matrixOfAnswers.length;
+const maxProgress = 100;
+let defaultTestIndex = 0;
+const maxTestValue = matrixOfAnswers.length;
+const snackBarTimeout = 3000;
+
 const defaultSelectClass = "selectBox";
 const resultLayoutClass = "resultBox";
 const answerLayoutClass = "answerBox";
 const startOverLayoutClass = "startOverButton";
-const testApp = getElement(".app");
-const dashboard = getElement(".dashboard");
-const dashboardLogs = getElement(".dashboardLogs");
-const parent = getElement(".content");
-const progress = getElement("#progress");
-progress.max = matrixOfAnswers.length;
-const maxProgress = 100;
+
 const answerValueName = "answerValue";
 const loggerTitleClass = "logerTitle";
 const navigationBlockClass = "navigationBlock";
 const navigationClass = "navigation";
-let defaultTestIndex = 0;
-const maxTestValue = matrixOfAnswers.length;
+
 const questionClass = "questionLayout";
 const backButtonText = "❮ назад";
 const forwardButtonText = "далее ❯";
@@ -27,14 +31,15 @@ const noResultsYet = "Вы еще не проходили тест";
 const restartQuiz = "Пройти еще раз";
 const yourResult = "Ваш результат";
 const scoreTextName = "баллов";
-const snackBarTimeout = 3000;
+
 
 /**
  * Создание главного экрана
+ * @dashboardLogsLayout содержит слой для отображения логов
  */
-const initDash = () => {
+const initDash = (dashboardLogsLayout) => {
   const logs = getItem("logs");
-  dashboardLogs.innerHTML = "";
+  dashboardLogsLayout.innerHTML = "";
   if (logs.length > 0) {
     logs.forEach(log => {
       const loger = createElementWithContent(
@@ -44,33 +49,58 @@ const initDash = () => {
       );
       const progress = createProgressBar(maxProgress, log.score);
 
-      dashboardLogs.appendChild(loger);
-      dashboardLogs.appendChild(progress);
+      dashboardLogsLayout.appendChild(loger);
+      dashboardLogsLayout.appendChild(progress);
     });
   } else {
     const loger = createElementWithContent("div", undefined, noResultsYet);
-    dashboardLogs.appendChild(loger);
+    dashboardLogsLayout.appendChild(loger);
   }
 };
 
 /**
- * Инициация тестов. Сброс всех параметров
+ * Инициация тестов. Вызывает функцию обнуления всех параметров
+ * @quizApplication элемент приложения
+ * @dashboard слой с дашбордом
+ * @progress элемент прогресбар
+ * @matrixOfAnswers массив ответов
+ * @defaultTestIndex текущий номер вопроса
  */
-const initTest = () => {
-  testApp.style.display = "block";
+const initQuizListener = () => {
+  console.log(contentLayout);
+  initQuiz(quizApplication, {
+    dashboard,
+    progress,
+    matrixOfAnswers,
+    defaultTestIndex,
+    contentLayout
+  });
+};
+
+/**
+ * Функция сброса всех параметров
+ * @resetIndex функция сброса индекса теста
+ * @resetAnswersToFalse сброс всех ответов в массиве на "не отвечено"
+ * @createQuizElementsWithAnswersList создание списка ответов для текущего вопроса
+*/
+const initQuiz = (application, {
+                                  dashboard,
+                                  progress,
+                                  contentLayout,
+                               }) => {
+  application.style.display = "block";
   dashboard.style.display = "none";
   progress.value = 0;
   resetIndex();
-  score = 0;
-  resetLastResults();
-  createQuizElementsWithAnswersList(matrixOfAnswers[defaultTestIndex]);
-};
+  resetAnswersToFalse();
+  createQuizElementsWithAnswersList(matrixOfAnswers[defaultTestIndex], contentLayout, progress);
+}
 
 /*
  * Отрисовка кнопок теста
  */
-const createQuizElementsWithAnswersList = dataList => {
-  parent.innerHTML = "";
+const createQuizElementsWithAnswersList = (dataList, layout, progressBar) => {
+  layout.innerHTML = "";
 
   const question = getElement(`.${questionClass}`);
   question.innerHTML = matrixOfQuestions[defaultTestIndex];
@@ -84,22 +114,22 @@ const createQuizElementsWithAnswersList = dataList => {
       dataElement.score,
       dataElement.selected
     );
-    parent.appendChild(btn);
+    layout.appendChild(btn);
   });
 
   const navigationBlock = createNavigationBlock(matrixOfAnswers.length);
-  parent.appendChild(navigationBlock);
+  layout.appendChild(navigationBlock);
 
   document.querySelectorAll(`.${defaultSelectClass}`).forEach(selector => {
     selector.addEventListener("click", selectElementInTest);
   });
-  progress.value = defaultTestIndex;
+  progressBar.value = defaultTestIndex;
 };
 
 /*
  * Выбор ответа в списке вариантов
  */
-const selectElementInTest = () => {
+const selectElementInTest = (event) => {
   selectTestInDataSet(
     parseInt(event.target.dataset[answerValueName]),
     event.target
@@ -109,7 +139,7 @@ const selectElementInTest = () => {
 /**
  * Создание слоя с результатами
  */
-const createResultLayout = result => {
+const createResultLayout = (result, progress, contentLayout) => {
   let score = 0;
 
   matrixOfAnswers.forEach(element => {
@@ -133,23 +163,27 @@ const createResultLayout = result => {
     startOverLayoutClass,
     restartQuiz
   );
-  startOverLayout.addEventListener("click", initTest);
+  startOverLayout.addEventListener("click", initQuizListener);
 
   progress.value = maxTestValue;
-  parent.innerHTML = "";
-  parent.appendChild(resultLayout);
-  parent.appendChild(answerLayout);
-  parent.appendChild(startOverLayout);
+  contentLayout.innerHTML = "";
+  contentLayout.appendChild(resultLayout);
+  contentLayout.appendChild(answerLayout);
+  contentLayout.appendChild(startOverLayout);
 };
 
 /**
  * Отменить тест и вернуться на главную
  */
 const cancelTest = () => {
-  testApp.style.display = "none";
-  dashboard.style.display = "block";
-  initDash();
+  clearGlobalParams(quizApplication, dashboard);
+  initDash(dashboardLogsLayout);
 };
+
+const clearGlobalParams = (application, dashboard) => {
+  application.style.display = "none";
+  dashboard.style.display = "block";
+}
 
 /**
  * Создание строки результатов
@@ -257,7 +291,7 @@ const changeIndex = (direction = true) => {
   } else if (!direction && defaultTestIndex > 0) {
     defaultTestIndex--;
   }
-  createQuizElementsWithAnswersList(matrixOfAnswers[defaultTestIndex]);
+  createQuizElementsWithAnswersList(matrixOfAnswers[defaultTestIndex], contentLayout, progress);
 };
 
 /**
@@ -288,7 +322,7 @@ const selectTestInDataSet = (selectedIndex, target) => {
 /**
  * Сброс всех ответов
  */
-const resetLastResults = () => {
+const resetAnswersToFalse = () => {
   matrixOfAnswers.forEach(element => {
     element.forEach(answer => (answer.selected = false));
   });
@@ -326,7 +360,7 @@ const checkResults = score => {
  */
 const finishTest = () => {
   const score = getTestScore();
-  createResultLayout(checkResults(score));
+  createResultLayout(checkResults(score), progress, contentLayout);
   const resultToState = {
     score,
     timestamp: new Date().toLocaleDateString("en-US")
@@ -334,10 +368,11 @@ const finishTest = () => {
   setItem("logs", resultToState);
 };
 
+// ==================================================================================
 /**
  * Старт приложения
  */
-initDash();
+initDash(dashboardLogsLayout);
 
 /*
  * Это создание service worker нужен для инициации Progressive возможностей страницы
